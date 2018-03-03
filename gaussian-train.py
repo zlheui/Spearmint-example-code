@@ -14,8 +14,6 @@ from keras.callbacks import ModelCheckpoint
 from keras.callbacks import EarlyStopping
 
 
-
-
 def main(job_id, params):
     
     batch_size = int(params['batch_size'][0])
@@ -112,13 +110,6 @@ def main(job_id, params):
         ModelCheckpoint(path_to_weights+"weights_"+str(job_id)+".h5", monitor='val_loss', save_best_only=True, save_weights_only=True, verbose=1),
     ]
 
-    # model.fit(X_train.astype('float32'), Y_train, batch_size=batch_size, nb_epoch=nb_epoch,
-    #       shuffle=True, verbose=1, validation_data=(X_valid, Y_valid),
-    #       callbacks=callbacks)
-
-    # model.fit_generator(datagen.flow(x_train, y_train, batch_size=batch_size), verbose=2, steps_per_epoch=len(x_train)/batch_size, validation_data=(x_val, y_val), epochs=epochs)
-
-
     train_history = model.fit(x_train, y_train, batch_size=batch_size, verbose=2, epochs=epochs, validation_data=(x_val, y_val), callbacks=callbacks)
     loss = train_history.history['loss']
 
@@ -126,29 +117,6 @@ def main(job_id, params):
     print(min(loss))
 
     return min(loss)
-
-
-
-    # # save weights for weight sharing
-    # model.save_weights(path_to_weights+"weights_"+str(job_id)+".h5")
-
-    # predicted_x = model.predict(x_test)
-    # residuals = np.argmax(predicted_x,1)!=np.argmax(y_test,1)
-
-    # accuracy = np.empty(residuals.shape)
-
-    # for i in range(0, len(residuals)):
-    #     if residuals[i]:
-    #         accuracy[i] = 1
-
-
-    # loss = sum(accuracy)/len(residuals)
-    # print("the validation 0/1 loss is: ",loss)
-
-    # K.clear_session()
-
-    # return loss
-
 
 if __name__ == "__main__":
     main(23, {'batch_size': ['128'], 'dropout': ['0.3', '0.3'], 'weight_decay': ['0.0005'], 'init_std': ['0.01'], 'lr': ['0.001'], 'momentum': ['0.9'], 'activation': ['relu']})
