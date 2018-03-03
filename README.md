@@ -1,1 +1,1 @@
-"#Spearmint-example-code" 
+Spearmint: example code for finding hyper-parameters for a neural network, see https://github.com/JasperSnoek/spearmint for detail
