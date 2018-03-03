@@ -74,8 +74,8 @@ def main(job_id, params):
                   optimizer=sgd,
                   metrics=['accuracy'])
 
-    # # load current best weight
     path_to_weights = "/home/zhulei/spearmint/spearmint/examples/gaussian4-exp-rdshare/weights/"
+    # # load current best weight. comment away to share weight
     path_to_best_result = "/home/zhulei/spearmint/spearmint/examples/gaussian4-exp-rdshare/best_job_and_result.txt"
 
     if os.path.isfile(path_to_best_result):
@@ -87,22 +87,6 @@ def main(job_id, params):
                 path_to_best_weights = path_to_weights + "weights_" + best_job_id + ".h5"
                 model.load_weights(path_to_best_weights)
                 print("loaded weight from " + path_to_best_weights)
-
-
-    # datagen = ImageDataGenerator(
-    #             featurewise_center=False,  # set input mean to 0 over the dataset
-    #             samplewise_center=False,  # set each sample mean to 0
-    #             featurewise_std_normalization=False,  # divide inputs by std of the dataset
-    #             samplewise_std_normalization=False,  # divide each input by its std
-    #             zca_whitening=False)  # apply ZCA whitening
-    #             #rotation_range=15,  # randomly rotate images in the range (degrees, 0 to 180)
-    #             #width_shift_range=0.1,  # randomly shift images horizontally (fraction of total width)
-    #             #height_shift_range=0.1,  # randomly shift images vertically (fraction of total height)
-    #             #horizontal_flip=True,  # randomly flip images
-    #             #vertical_flip=False)  # randomly flip images
-    #         # (std, mean, and principal components if ZCA whitening is applied).
-
-    # datagen.fit(x_train)
 
 
     callbacks = [
